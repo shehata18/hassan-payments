@@ -46,7 +46,7 @@ const CONFIG = {
 /* ============================================================
    SCREEN NAVIGATION
    ============================================================ */
-function showScreen(screenId) {
+function showScreen(screenId, isUserAction = true) {
   // Hide all screens and main content
   document.querySelectorAll(".screen, .main-content").forEach((el) => {
     el.classList.add("hidden");
@@ -60,7 +60,15 @@ function showScreen(screenId) {
     requestAnimationFrame(() => {
       target.style.animation = "";
     });
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+
+    if (isUserAction) {
+      if (screenId === "home-screen") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        // Scroll smoothly to show the selected screen content
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
   }
 
   // Populate phone numbers
@@ -205,8 +213,9 @@ function openInstaPay() {
    INIT
    ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-  // Make sure home screen is visible on load
-  showScreen("home-screen");
+  // Make sure home screen is visible on load without scrolling
+  showScreen("home-screen", false);
+  window.scrollTo(0, 0);
 
   // Allow pressing Enter on amount input to trigger dial
   const amountInput = document.getElementById("amount-ussd");
