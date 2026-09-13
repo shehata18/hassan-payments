@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ادفع بسهولة | Pay Easy</title>
+  <meta name="description" content="اختر طريقة الدفع المناسبة ليك - فودافون كاش أو انستا باي" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Animated background particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Main wrapper -->
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-icon">💳</div>
+      <h1 class="header-title">ادفع بسهولة</h1>
+      <p class="header-subtitle">اختار الطريقة المناسبة ليك</p>
+    </header>
+
+    <!-- Payment Options Grid -->
+    <main class="main-content" id="home-screen">
+
+      <!-- Vodafone Cash Card -->
+      <button class="payment-card vf-card" id="btn-vf" onclick="showScreen('vf-screen')"
+        aria-label="الدفع عن طريق فودافون كاش">
+        <div class="card-glow vf-glow"></div>
+        <div class="card-icon vf-icon-box">
+          <img src="vodafone-icon.svg" alt="فودافون كاش" class="card-logo-img" />
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">فودافون كاش</h2>
+          <p class="card-desc">حوّل فلوس بسهولة عن طريق فودافون كاش</p>
+        </div>
+        <div class="card-arrow">←</div>
+      </button>
+
+      <!-- InstaPay Card -->
+      <button class="payment-card ip-card" id="btn-ip" onclick="openInstaPay()" aria-label="الدفع عن طريق انستا باي">
+        <div class="card-glow ip-glow"></div>
+        <div class="card-icon ip-icon-box">
+          <img src="InstaPay-Logo.webp" alt="انستا باي" class="card-logo-img ip-logo-img" />
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">انستا باي</h2>
+          <p class="card-desc">hassan7771@instapay</p>
+        </div>
+        <div class="card-arrow">←</div>
+      </button>
+
+      <!-- Other Wallets Card -->
+      <button class="payment-card other-card" id="btn-other" onclick="showScreen('other-screen')"
+        aria-label="محافظ أخرى">
+        <div class="card-glow other-glow"></div>
+        <div class="card-icon">
+          <svg viewBox="0 0 60 60" width="60" height="60" fill="none">
+            <circle cx="30" cy="30" r="30" fill="#7C3AED" />
+            <rect x="12" y="20" width="36" height="24" rx="5" fill="white" opacity="0.2" stroke="white"
+              stroke-width="2" />
+            <circle cx="38" cy="32" r="5" fill="white" />
+            <line x1="12" y1="28" x2="48" y2="28" stroke="white" stroke-width="2" />
+          </svg>
+        </div>
+        <div class="card-content">
+          <h2 class="card-title">محافظ أخرى</h2>
+          <p class="card-desc">أورنج كاش، WE Pay، وغيرها</p>
+        </div>
+        <div class="card-arrow">←</div>
+      </button>
+
+    </main>
+
+    <!-- ==================== VF SCREEN ==================== -->
+    <div class="screen hidden" id="vf-screen">
+      <button class="back-btn" onclick="showScreen('home-screen')">
+        <span>→</span> رجوع
+      </button>
+
+      <h2 class="screen-title">فودافون كاش</h2>
+      <p class="screen-subtitle">اختار طريقة التحويل</p>
+
+      <!-- Phone Number always visible -->
+      <div class="phone-display" style="margin-bottom: 20px;">
+        <span class="phone-number" id="phone-text">01097436673</span>
+        <button class="copy-btn" id="copy-btn" onclick="copyPhone()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          نسخ الرقم
+        </button>
+      </div>
+      <div class="copied-toast" id="copied-toast" style="margin-bottom: 16px;">✅ تم النسخ!</div>
+
+      <!-- Sub-options -->
+      <div class="sub-options">
+
+        <!-- Option 2: USSD Transfer -->
+        <div class="sub-card" id="sub-ussd">
+          <div class="sub-icon">📞</div>
+          <div class="sub-info">
+            <h3>تحويل سريع (USSD)</h3>
+            <p>هيفتح تطبيق الاتصال تلقائياً بالكود</p>
+          </div>
+          <button class="expand-btn" onclick="toggleSection('section-ussd')">تفاصيل</button>
+        </div>
+        <div class="expand-section hidden" id="section-ussd">
+          <div class="amount-form">
+            <label class="amount-label" for="amount-ussd">ادخل المبلغ (جنيه)</label>
+            <div class="amount-input-wrap">
+              <span class="currency-symbol">ج.م</span>
+              <input type="number" id="amount-ussd" class="amount-input" placeholder="0.00" min="1"
+                inputmode="decimal" />
+            </div>
+            <button class="action-btn vf-btn" onclick="dialUSSD()">
+              <span>📞</span> اتصل وحوّل دلوقتي
+            </button>
+          </div>
+        </div>
+
+        <!-- Option 3: VF App -->
+        <div class="sub-card" id="sub-app">
+          <div class="sub-icon">
+            <img src="vodafone-icon.svg" alt="أنا فودافون" class="sub-icon-img" />
+          </div>
+          <div class="sub-info">
+            <h3>تطبيق أنا فودافون</h3>
+            <p>حوّل مباشرة من تطبيق فودافون</p>
+          </div>
+          <button class="expand-btn" onclick="openVFApp()">افتح التطبيق</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ==================== OTHER SCREEN ==================== -->
+    <div class="screen hidden" id="other-screen">
+      <button class="back-btn" onclick="showScreen('home-screen')">
+        <span>→</span> رجوع
+      </button>
+
+      <h2 class="screen-title">محافظ أخرى</h2>
+      <p class="screen-subtitle">انسخ رقم الهاتف وحوّل من تطبيقك</p>
+
+      <div class="phone-display big-phone">
+        <span class="phone-number" id="phone-text-other">01097436673</span>
+        <button class="copy-btn" id="copy-btn-other" onclick="copyPhoneOther()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          نسخ الرقم
+        </button>
+      </div>
+      <div class="copied-toast" id="copied-toast-other">✅ تم النسخ!</div>
+
+      <p class="other-hint">افتح تطبيق محفظتك (أورنج كاش، WE Pay، إلخ) والصق الرقم لإتمام التحويل</p>
+
+      <div class="wallets-grid">
+        <div class="wallet-chip">🟠 أورنج كاش</div>
+        <div class="wallet-chip">🔵 WE Pay</div>
+        <div class="wallet-chip">🟢 E& كاش</div>
+        <div class="wallet-chip">🏦 فوري</div>
+      </div>
+    </div>
+
+  </div><!-- end page-wrapper -->
+
+  <script src="app.js"></script>
+</body>
+
+</html>
