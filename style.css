@@ -367,6 +367,7 @@ body::after {
   padding: 10px 18px;
   border-radius: 50px;
   cursor: pointer;
+  margin-top: 16px;
   margin-bottom: 28px;
   transition: background 0.2s ease, transform 0.2s ease;
 }

@@ -60,7 +60,7 @@ function showScreen(screenId) {
     requestAnimationFrame(() => {
       target.style.animation = "";
     });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   }
 
   // Populate phone numbers
@@ -125,6 +125,9 @@ function toggleSection(sectionId) {
   const section = document.getElementById(sectionId);
   if (!section) return;
   section.classList.toggle("hidden");
+  if (!section.classList.contains("hidden")) {
+    section.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
 }
 
 /* ============================================================
